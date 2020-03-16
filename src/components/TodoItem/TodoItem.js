@@ -1,19 +1,56 @@
-import React from 'react'
-// import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
 
 import './todo-item.css'
 
-const TodoItem = ({label, important = false}) => {
+export default class TodoItem extends Component {
 
-    const style = {
-        color: important ? 'tomato' : '#000'
+    state = {
+        done: false,
+        important: false
     };
+    
+    onLabelClick = () => {
+        this.setState(({done}) => {
+            return {
+                done: !done
+            }
+        });
+    }
 
-    return (
-        <span style={style}>
-            {label}
-        </span>
-    )
+    onMarkImportant = () => {
+        this.setState(({important})=> {
+            return  {
+                important: !important
+            }
+        });
+    }
+
+    render() {
+        const {label, onDeleted} = this.props;
+        const {done, important} = this.state;
+
+        let classNames = 'todo-list-item';
+
+        if(done) {
+            classNames += ' done';
+        }
+
+        if(important) {
+            classNames += ' important';
+        }
+
+        return (
+            <span className={classNames}>
+                <span onClick={this.onLabelClick} className="todo-list-item-label">
+                    {label}
+                </span>
+                <button onClick={onDeleted} type="button" className="btn btn-outline-danger btn-sm">
+                    <i className="fa fa-trash-o"/>
+                </button>
+                <button onClick={this.onMarkImportant} type="button" className="btn btn-outline-success btn-sm">
+                    <i className="fa fa-exclamation"/>
+                </button>
+            </span>
+        )
+    }
 }
-
-export default TodoItem;

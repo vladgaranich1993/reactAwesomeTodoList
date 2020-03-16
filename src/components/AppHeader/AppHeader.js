@@ -1,9 +1,12 @@
 import React from 'react'
 // import ReactDOM from 'react-dom'
 
-const AppHeader = () => {
+const AppHeader = ({todo, done}) => {
     return (
-        <h1>My todolist</h1>
+        <div>
+            <h1>todo</h1>
+             <h2>{todo} more todo, {done}done</h2>
+        </div>
     )
 }
 

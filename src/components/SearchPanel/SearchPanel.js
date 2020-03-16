@@ -10,8 +10,8 @@ const SearchPanel = () => {
     }
 
     return(
-    <div className="d-flex">
-        <input style={searchStyle} placeholder={placeHolderSearch}/>
+    <div className="d-flex col-12">
+        <input className="input-group-text" style={searchStyle} placeholder={placeHolderSearch}/>
         <ItemStatusFilter/>
     </div>
     )

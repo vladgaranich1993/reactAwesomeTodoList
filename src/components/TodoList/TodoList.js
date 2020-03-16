@@ -1,10 +1,8 @@
 import React from 'react'
 // import ReactDOM from 'react-dom'
-
 import './todo-list.css'
 
 import TodoItem from '../TodoItem/TodoItem'
-
 
 const TodoList = ({todos}) => {
 
@@ -12,7 +10,9 @@ const TodoList = ({todos}) => {
         const {id, ...itemProps} = item;
         return(
             <li className="list-group-item" key={id}>
-                <TodoItem {...itemProps} />
+                <TodoItem 
+                {...itemProps} 
+                onDeleted={()=> console.log('deleted')}/>
             </li>
         )
     })
