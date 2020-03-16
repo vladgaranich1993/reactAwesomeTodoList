@@ -4,7 +4,7 @@ import './todo-list.css'
 
 import TodoItem from '../TodoItem/TodoItem'
 
-const TodoList = ({todos}) => {
+const TodoList = ({todos, onDeleted}) => {
 
     const elements = todos.map((item) => {   
         const {id, ...itemProps} = item;
@@ -12,7 +12,7 @@ const TodoList = ({todos}) => {
             <li className="list-group-item" key={id}>
                 <TodoItem 
                 {...itemProps} 
-                onDeleted={()=> console.log('deleted')}/>
+                onDeleted={()=> onDeleted(id)}/>
             </li>
         )
     })
