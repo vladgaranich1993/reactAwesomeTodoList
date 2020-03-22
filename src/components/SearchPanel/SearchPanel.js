@@ -1,5 +1,4 @@
 import React from 'react'
-// import ReactDOM from 'react-dom'
 
 const SearchPanel = () => {
     const placeHolderSearch = 'type here to search';
@@ -9,7 +8,7 @@ const SearchPanel = () => {
 
     return(
         <div className="mb-3">
-            <input className="input-group-text" style={searchStyle} placeholder={placeHolderSearch}/>
+            <input className="form-control" style={searchStyle} placeholder={placeHolderSearch}/>
         </div>
     )
 }
