@@ -12,11 +12,7 @@ export default class App extends Component {
     maxId = 100;
 
     state = {
-        todoData: [
-            this.createTodoItem('Drink Tea'),
-            this.createTodoItem('React'),
-            this.createTodoItem('Hello')
-        ]
+        todoData: []
     };
 
     createTodoItem(label) {
@@ -43,20 +39,23 @@ export default class App extends Component {
 
         addItem = (text) => {
             const newItem = this.createTodoItem(text);
-            this.setState(({todoData}) => {
-                const newArr = [
-                    ...todoData,
-                    newItem
-                ]          
-                return {
-                    todoData: newArr
-                }  
-            });
+            if(text !== '') {
+                this.setState(({todoData}) => {
+                    const newArr = [
+                        ...todoData,
+                        newItem
+                    ]          
+                    return {
+                        todoData: newArr
+                    }  
+                });
+            } else {
+                alert('Is not allowed to add empty todo!')
+            }
         };
 
         onToggleImportant = (id) => {
             this.setState(({todoData})=> {
-                console.log(todoData)
                 return {
                     todoData: this.toggleProperty(todoData, id, 'important')
                 }

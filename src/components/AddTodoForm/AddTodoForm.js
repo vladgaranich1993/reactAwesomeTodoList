@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './add-todo-form.css';
 
 export default class AddTodoForm extends Component {
 
@@ -23,7 +22,7 @@ export default class AddTodoForm extends Component {
 
     render() {   
         return(
-            <form className="add-todo-form" onSubmit={this.onSubmitForm}>
+            <form onSubmit={this.onSubmitForm}>
                 <input className="form-control" onChange={this.onLabelChange} type="text" placeholder="Enter todo title"
                 value={this.state.label}
                 />

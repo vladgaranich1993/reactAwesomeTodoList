@@ -4,7 +4,7 @@ import React from 'react'
 const AppHeader = ({toDo, done}) => {
     return (
         <div>
-            <h1>todo</h1>
+            <h1>Todo List</h1>
              <h2>{toDo} more todo, {done} done</h2>
         </div>
     )
