@@ -2,7 +2,11 @@
     text-decoration: line-through;
 }
 
-.todo-list-item.important .todo-list-item-label {
+.todo-item.important .todo-list-item-label {
     font-weight: bold;
     color: steelblue;
+}
+
+.list-group-item:hover {
+    cursor: pointer;
 }

@@ -5,59 +5,103 @@ import SearchPanel from '../SearchPanel';
 import TodoList from '../TodoList';
 import AddTodoForm from '../AddTodoForm';
 
+import './app.css'
+
 export default class App extends Component {
 
     maxId = 100;
 
     state = {
         todoData: [
-            {label: 'Drink Coffee', important: true, id: 1 },
-            {label: 'Make React App', important: true, id: 2},
-            {label: 'Improve English', important: true, id: 3},
-            {label: 'Go to the gym', important: false, id: 4}
+            this.createTodoItem('Drink Tea'),
+            this.createTodoItem('React'),
+            this.createTodoItem('Hello')
         ]
     };
 
-    deleteItem = (id) => {
-        this.setState(({todoData})=> {
-            const idx = todoData.findIndex(i => i.id === id);
-            const newArray = [todoData.slice(0, idx), todoData.slice(idx + 1)];
-            return {
-                todoData: newArray
+    createTodoItem(label) {
+        return {
+                label,
+                done: false,
+                important: false,
+                id: this.maxId++
             }
-        })
-    }
-
-    addItem = (text) => {
-        // generate id 
-        const newItem = {
-            label: text,
-            important: false,
-            id: this.maxId++
         }
-        // add object to the array
+            
+        deleteItem = (id) => {
+            this.setState(({todoData})=> {
+                const idx = todoData.findIndex(i => i.id === id);
+                const newArray = [ 
+                    ...todoData.slice(0, idx), 
+                    ...todoData.slice(idx + 1)
+                ];
+                return {
+                    todoData: newArray
+                }
+            })
+        };
 
-        this.setState(({todoData}) => {
-            const newArr = [
-                ...todoData,
-                newItem
-            ]          
-            return {
-                todoData: newArr
-            }  
-        });
-    }
+        addItem = (text) => {
+            const newItem = this.createTodoItem(text);
+            this.setState(({todoData}) => {
+                const newArr = [
+                    ...todoData,
+                    newItem
+                ]          
+                return {
+                    todoData: newArr
+                }  
+            });
+        };
 
-    render() {
-        return (
-            <div>
-                <AppHeader toDo={1} done={3}/>
-                <SearchPanel/>
-                <TodoList
-                todos={this.state.todoData} 
-                onDeleted={this.deleteItem} />
-                <AddTodoForm onItemAdded={this.addItem}/>
-            </div>
-        )
-    }
+        onToggleImportant = (id) => {
+            this.setState(({todoData})=> {
+                console.log(todoData)
+                return {
+                    todoData: this.toggleProperty(todoData, id, 'important')
+                }
+            })
+        }
+
+        onToggleDone = (id) => {
+            this.setState(({todoData})=> {
+                return {
+                    todoData: this.toggleProperty(todoData, id, 'done')
+                }
+            }); 
+        };
+
+        toggleProperty = (arr, id, propName) => {
+            const idx = arr.findIndex(el => el.id === id);
+
+            const oldItem = arr[idx];
+            const newItem = {...oldItem,
+            [propName]: !oldItem[propName]}
+            
+            return [
+                ...arr.slice(0, idx),
+                newItem,
+                ...arr.slice(idx + 1)
+            ]
+        }
+
+        render() {
+            const {todoData} = this.state;
+            const doneCount = todoData.filter(item => item.done).length;
+            const todoCount = todoData.length - doneCount;
+
+            return (
+                <div className="todo-app">
+                    <AppHeader toDo={todoCount} done={doneCount}/>
+                    <SearchPanel/>
+                    <TodoList
+                        todos={todoData} 
+                        onDelete={this.deleteItem} 
+                        onToggleDone={this.onToggleDone}
+                        onToggleImportant={this.onToggleImportant}
+                    />
+                    <AddTodoForm onItemAdded={this.addItem}/>
+                </div>
+            )
+        }
 }

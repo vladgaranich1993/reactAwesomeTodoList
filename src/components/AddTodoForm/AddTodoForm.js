@@ -3,14 +3,6 @@ import './add-todo-form.css';
 
 export default class AddTodoForm extends Component {
 
-    deleteTodo = () => {
-        this.setState({
-            newTodo: {
-
-            }
-        });
-    }
-
     render() {
         return(
             <div className="add-todo-form">
